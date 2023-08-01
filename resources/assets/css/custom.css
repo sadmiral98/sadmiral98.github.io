@@ -1,0 +1,56 @@
+.img-logo {
+    width: 25%;
+    margin-right: 5%;
+}
+
+.content b {
+    color: #45b4e3;
+}
+.img-projects-logo {
+    width: 70%;
+}
+.projects .project-logo {
+    width: 100%;
+    height: 45%;
+    border-bottom: 1px solid #18d26e;
+    padding-bottom: 1rem;
+    margin-bottom: 1rem;
+}
+.projects .icon-box {
+    position: relative;
+}
+.projects .icon-box div.text-hover {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 100%;
+    height: 100%;
+    padding: 8px 15px;
+    font-family: sans-serif;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #18d26e;
+    font-size: 30px;
+    font-weight: bold;
+    flex-direction: column;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.5s ease, visibility 0.5s ease;
+}
+.projects .icon-box:hover {
+    cursor: pointer;
+}
+.projects .icon-box:hover .projects-content {
+    filter: brightness(0.3);
+}
+
+.projects .icon-box:hover div.text-hover {
+    visibility: visible;
+    opacity: 0.8;
+}
+.projects .icon-box:not(:hover) div.text-hover {
+    opacity: 0;
+    visibility: hidden;
+}
