@@ -83,9 +83,33 @@ $('body').on('click', '.option', function(e) {
     el_class = el_class.replace('_button','')
     $('html, body').animate({
         scrollTop: $('.'+el_class+'_section').offset().top - 100
-    }, 100); // Adjust duration (500ms) as needed
+    }, 100);
 });
-    
+function toggleSideMenu() {
+    // $('.side_menu').toggleClass('active')
+    let menu = $('.side_menu')
+    let menu_options = $('.side_menu_options')
+    if (menu.hasClass('active')){
+        menu_options.animate({ width: '0%' }, 200).queue(function() {
+            menu.removeClass('active')
+            $(this).dequeue();
+        });
+    }else{
+        menu.addClass('active')
+        menu_options.animate({ width: '70%' }, 200).queue(function() {
+            $(this).dequeue();
+        });
+        // menu.addClass('active')
+    }
+}
+$('body').on('click', '.side_menu_button', function() {
+    toggleSideMenu() 
+})
+$('body').on('click', '.blur_background', function(e) {
+    if (e.target === this) {
+        toggleSideMenu()
+    }
+})
 $('body').on('click', '#switch_mode', function() {
     let icons = $('#switch_mode i');
     
