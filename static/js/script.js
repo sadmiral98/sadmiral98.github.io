@@ -8,7 +8,12 @@ $(window).on("scroll", function () {
 });
 var glob_selected_section = ""
 var glob_section_distance = 5000
-navbarActiveIndicator()
+function isMobileView() {
+    return window.innerWidth <= 768; // Adjust breakpoint as needed
+}
+if(!isMobileView()){
+    navbarActiveIndicator()
+}
 function checkSections() {
     let sections_unloaded = $(".section_container").not(".loaded");
     let sections = $(".section_container");
@@ -21,34 +26,35 @@ function checkSections() {
             section.addClass("loaded");
         }
     })
-    
-    var selected_section = ""
-    var section_distance = 5000
+    if(!isMobileView()){
+        var selected_section = ""
+        var section_distance = 5000
 
-    sections.each(function() {
-        let section = $(this)
-        let sectionTop = section.offset().top;
-        if (sectionTop <= windowBottomNavbar) {
-            let distance = windowBottomNavbar - sectionTop
-            if (distance < section_distance && distance > 30){
-                selected_section = section
-                section_distance = distance
-            }else{
-                if ((windowBottomNavbar - $('.main_section').offset().top) < 800 ){
-                    selected_section = $('.main_section')
+        sections.each(function() {
+            let section = $(this)
+            let sectionTop = section.offset().top;
+            if (sectionTop <= windowBottomNavbar) {
+                let distance = windowBottomNavbar - sectionTop
+                if (distance < section_distance && distance > 30){
+                    selected_section = section
+                    section_distance = distance
                 }else{
-                    selected_section = $('.about_section')
+                    if ((windowBottomNavbar - $('.main_section').offset().top) < 800 ){
+                        selected_section = $('.main_section')
+                    }else{
+                        selected_section = $('.about_section')
+                    }
                 }
             }
+        })
+        if (selected_section[0] !== glob_selected_section[0]){
+            glob_selected_section = selected_section
+            let firstClass = selected_section.attr("class").split(" ")[0];
+            let class_section = firstClass.replace('_section','')
+            $('.option').removeClass('active')
+            $('.'+class_section+'_button').addClass('active')
+            navbarActiveIndicator()
         }
-    })
-    if (selected_section[0] !== glob_selected_section[0]){
-        glob_selected_section = selected_section
-        let firstClass = selected_section.attr("class").split(" ")[0];
-        let class_section = firstClass.replace('_section','')
-        $('.option').removeClass('active')
-        $('.'+class_section+'_button').addClass('active')
-        navbarActiveIndicator()
     }
 }
 function navbarActiveIndicator() {
